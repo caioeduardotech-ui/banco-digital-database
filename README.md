@@ -1,33 +1,65 @@
-# Projeto: Banco de Dados de Banco Digital  
-por Caio Eduardo  
+# 💳 Projeto: Banco de Dados de Banco Digital
 
-## Descrição  
-Projeto de banco de dados criado para simular o funcionamento de um banco digital, permitindo o cadastro de clientes, contas, cartões e transações financeiras.
+por **Caio Eduardo**
 
-## Estrutura do banco  
-### Tabelas  
-- clientes  
-- contas  
-- cartoes  
-- transacoes  
-- agencias  
+## 📌 Descrição
+Este projeto simula a estrutura de um banco digital utilizando um banco de dados relacional em **MySQL**.  
+Ele permite o cadastro e gerenciamento de clientes, contas bancárias, cartões e transações financeiras, além de consultas para análise de dados.
 
-## O que foi feito  
-- Modelagem do banco de dados  
-- Criação de tabelas com chaves primárias e estrangeiras  
-- Criação de consultas SQL para relatórios e extratos  
+O objetivo é demonstrar conhecimentos práticos em **modelagem de dados, SQL e análise de informações financeiras**.
 
-## Tecnologias  
+---
+
+## 🧱 Estrutura do Banco
+
+O banco é composto pelas seguintes tabelas:
+
+- `clientes`
+- `contas`
+- `cartoes`
+- `transacoes`
+- `agencias`
+
+As tabelas estão relacionadas por **chaves estrangeiras**, simulando a estrutura real de um sistema bancário.
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- MySQL 8.0  
 - SQL  
-- Banco de dados relacional  
+- Git e GitHub  
+- Modelagem de Banco de Dados Relacional  
 
-## Skills demonstradas  
-✔ SQL  
-✔ Modelagem de dados  
-✔ Relacionamentos (PK e FK)  
-✔ Consultas e relatórios  
+---
 
-## Como testar  
-1. Copiar o SQL do arquivo `sql/create_tables.sql`  
-2. Executar em um gerenciador de banco de dados (MySQL, PostgreSQL, DBeaver, etc.)  
-3. Rodar as consultas do arquivo `sql/consultas.sql`  
+## ▶️ Como executar o projeto
+
+1. Crie o banco:
+```sql
+CREATE DATABASE banco_digital;
+USE banco_digital;
+
+## 📊 Exemplos de Consultas SQL
+
+-- Saldo de cada cliente
+SELECT c.nome, SUM(co.saldo) AS saldo_total
+FROM clientes c
+JOIN contas co ON c.id_cliente = co.id_cliente
+GROUP BY c.nome;
+
+-- Total de transações por cliente
+SELECT c.nome, COUNT(t.id_transacao) AS total_transacoes
+FROM clientes c
+JOIN contas co ON c.id_cliente = co.id_cliente
+JOIN transacoes t ON co.id_conta = t.id_conta
+GROUP BY c.nome;
+
+-- Cartões vinculados a cada cliente
+SELECT c.nome, ca.numero_cartao
+FROM clientes c
+JOIN contas co ON c.id_cliente = co.id_cliente
+JOIN cartoes ca ON co.id_conta = ca.id_conta;
+
+Essas consultas demonstram o uso de **JOINs, agregações (SUM, COUNT) e GROUP BY**, simulando relatórios reais de um sistema bancário.
+
